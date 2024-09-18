@@ -4,10 +4,6 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
-import logo from '@/assets/img/logo.png'
-import navIcon1 from '@/assets/img/nav-icon1.svg'
-import navIcon2 from '@/assets/img/nav-icon2.svg'
-import navIcon3 from '@/assets/img/nav-icon3.svg'
 import styles from './Navbar.module.css'
 
 export default function Navbar() {
@@ -34,9 +30,9 @@ export default function Navbar() {
   }
 
   const socialLinks = [
-    { icon: navIcon1, url: 'https://www.linkedin.com/in/lucianoemeri/' },
-    { icon: navIcon2, url: 'https://github.com/LucianoEmeri' },
-    { icon: navIcon3, url: 'https://www.instagram.com/LucianoEmeri' }
+    { icon: '/assets/nav-icon1.svg', url: 'https://www.linkedin.com/in/lucianoemeri/' },
+    { icon: '/assets/nav-icon2.svg', url: 'https://github.com/LucianoEmeri' },
+    { icon: '/assets/nav-icon3.svg', url: 'https://www.instagram.com/LucianoEmeri' }
   ]
 
   return (
@@ -45,7 +41,7 @@ export default function Navbar() {
         <div className={styles.navbarContent}>
           <Link href="/" className={styles.navbarLogo}>
             <Image 
-              src={logo} 
+              src="/assets/logo.png"
               alt="Logo" 
               width={180}
               height={60}
@@ -75,7 +71,7 @@ export default function Navbar() {
             <div className={styles.socialIcons}>
               {socialLinks.map((link, index) => (
                 <a key={index} href={link.url} target="_blank" rel="noopener noreferrer" className={styles.socialIconLink}>
-                  <Image src={link.icon} alt="" width={16} height={16} className={styles.socialIconImage} />
+                  <Image src={link.icon} alt={`Social Icon ${index + 1}`} width={16} height={16} className={styles.socialIconImage} />
                 </a>
               ))}
             </div>
@@ -114,7 +110,7 @@ export default function Navbar() {
           <div className={styles.navbarMobileSocial}>
             {socialLinks.map((link, index) => (
               <a key={index} href={link.url} target="_blank" rel="noopener noreferrer" className={styles.socialIconLink}>
-                <Image src={link.icon} alt="" width={16} height={16} className={styles.socialIconImage} />
+                <Image src={link.icon} alt={`Social Icon ${index + 1}`} width={16} height={16} className={styles.socialIconImage} />
               </a>
             ))}
           </div>
