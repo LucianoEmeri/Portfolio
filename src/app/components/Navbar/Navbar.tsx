@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
-import Link from "next/link"
 import { Menu, X, ChevronUp } from "lucide-react"
 import styles from './Navbar.module.css'
 
@@ -86,7 +85,13 @@ export default function Navbar() {
     >
       <div className={styles.navbarContainer}>
         <div className={styles.navbarContent}>
-          <Link href="/" className={styles.navbarLogo}>
+          <button 
+            className={styles.navbarLogo}
+            onClick={() => {
+              onUpdateActiveLink('home')
+              scrollToSection('home')
+            }}
+          >
             <Image 
               src="/assets/logo.png"
               alt="Logo" 
@@ -101,7 +106,7 @@ export default function Navbar() {
               }}
               priority
             />
-          </Link>
+          </button>
           <div className={styles.navbarLinks}>
             {[
               { name: 'Inicio', id: 'home' },
