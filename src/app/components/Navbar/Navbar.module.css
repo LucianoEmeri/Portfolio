@@ -4,24 +4,31 @@
   top: 0;
   z-index: 9999;
   transition: all 0.3s ease-in-out;
-  padding: 1rem 1rem;
-  /* background-color: rgba(0, 0, 0, 0.8); */
 }
 
-.scrolled {
-  padding: 0.5rem 0;
+.navbarContainer {
+  padding: 1rem 2rem;
+  transition: all 0.3s ease-in-out;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
+.scrolled .navbarContainer {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+@media (max-width: 767px) {
+  .navbar {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
 }
 
 .navbarContent {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .navbarLogo {
@@ -138,6 +145,11 @@
   transition: 0.3s ease-in-out;
 }
 
+.connectButton span {
+  position: relative;
+  z-index: 1;
+}
+
 .connectButton::before {
   content: "";
   width: 0%;
@@ -146,19 +158,17 @@
   background-color: #fff;
   left: 0;
   top: 0;
-  z-index: -1;
   transition: 0.3s ease-in-out;
 }
 
-.connectButton:hover {
+.connectButton:hover span,
+.scrolled .connectButton:hover span {
   color: #000000;
 }
 
-.connectButton:hover::before {
-  content: "";
+.connectButton:hover::before,
+.scrolled .connectButton:hover::before {
   width: 100%;
-  height: 100%;
-  position: absolute;
 }
 
 .navbarToggle {
@@ -181,7 +191,9 @@
 .navbarMobile {
   display: block;
   background-color: rgba(0, 0, 0, 0.8);
-  padding: 1rem;
+  padding: 1rem 2rem;
+  transition: height 0.3s ease-out;
+  overflow: hidden;
 }
 
 @media (min-width: 768px) {
@@ -222,5 +234,42 @@
     margin-left: 0;
     padding: 10px 20px;
     font-size: 16px;
+  }
+  
+  .connectButton:hover span,
+  .connectButton:active span {
+    color: #000000;
+  }
+  
+  .connectButton:hover::before,
+  .connectButton:active::before {
+    width: 100%;
+  }
+}
+
+.swipeIndicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  opacity: 0.7;
+  margin-top: 1rem;
+  animation: bounce 2s infinite;
+}
+
+.swipeIndicator span {
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
   }
 }

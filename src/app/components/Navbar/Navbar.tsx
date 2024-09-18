@@ -1,15 +1,18 @@
 'use client'
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { Menu, X, ChevronUp } from "lucide-react"
 import styles from './Navbar.module.css'
 
 export default function Navbar() {
   const [activeLink, setActiveLink] = useState('inicio')
   const [scrolled, setScrolled] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
+  const [isClosing, setIsClosing] = useState(false)
+  const touchStartY = useRef(0)
+  const navbarMobileRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const onScroll = () => {
@@ -29,6 +32,46 @@ export default function Navbar() {
     setActiveLink(value)
   }
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isExpanded) return
+
+    const touchEndY = e.touches[0].clientY
+    const diff = touchStartY.current - touchEndY
+
+    if (diff > 50) { // Si el gesto hacia arriba es mayor a 50px
+      closeNavbar()
+    }
+  }
+
+  const closeNavbar = () => {
+    if (navbarMobileRef.current) {
+      const height = navbarMobileRef.current.offsetHeight
+      navbarMobileRef.current.style.height = `${height}px`
+      navbarMobileRef.current.offsetHeight // Force reflow
+      navbarMobileRef.current.style.height = '0'
+    }
+    setIsClosing(true)
+    setTimeout(() => {
+      setIsExpanded(false)
+      setIsClosing(false)
+      if (navbarMobileRef.current) {
+        navbarMobileRef.current.style.height = ''
+      }
+    }, 300) // Este tiempo debe coincidir con la duración de la transición en CSS
+  }
+
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId)
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' })
+    }
+    closeNavbar()
+  }
+
   const socialLinks = [
     { icon: '/assets/nav-icon1.svg', url: 'https://www.linkedin.com/in/lucianoemeri/' },
     { icon: '/assets/nav-icon2.svg', url: 'https://github.com/LucianoEmeri' },
@@ -36,7 +79,11 @@ export default function Navbar() {
   ]
 
   return (
-    <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
+    <nav 
+      className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+    >
       <div className={styles.navbarContainer}>
         <div className={styles.navbarContent}>
           <Link href="/" className={styles.navbarLogo}>
@@ -56,15 +103,21 @@ export default function Navbar() {
             />
           </Link>
           <div className={styles.navbarLinks}>
-            {['Inicio', 'Habilidades', 'Proyectos'].map((link) => (
-              <Link 
-                key={link}
-                href={`#${link.toLowerCase()}`} 
-                className={`${styles.navbarLink} ${activeLink === link.toLowerCase() ? styles.active : ''}`}
-                onClick={() => onUpdateActiveLink(link.toLowerCase())}
+            {[
+              { name: 'Inicio', id: 'home' },
+              { name: 'Habilidades', id: 'skills' },
+              { name: 'Proyectos', id: 'projects' }
+            ].map((link) => (
+              <button 
+                key={link.name}
+                className={`${styles.navbarLink} ${activeLink === link.id ? styles.active : ''}`}
+                onClick={() => {
+                  onUpdateActiveLink(link.id)
+                  scrollToSection(link.id)
+                }}
               >
-                {link}
-              </Link>
+                {link.name}
+              </button>
             ))}
           </div>
           <div className={styles.navbarRight}>
@@ -75,11 +128,12 @@ export default function Navbar() {
                 </a>
               ))}
             </div>
-            <Link href="#connect" className={styles.connectButtonWrapper}>
-              <button className={styles.connectButton}>
-                <span>Contacto</span>
-              </button>
-            </Link>
+            <button 
+              className={styles.connectButton}
+              onClick={() => scrollToSection('connect')}
+            >
+              <span>Contacto</span>
+            </button>
           </div>
           <div className={styles.navbarToggle}>
             <button 
@@ -92,20 +146,23 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      {isExpanded && (
-        <div className={styles.navbarMobile}>
-          {['Inicio', 'Habilidades', 'Proyectos'].map((link) => (
-            <Link 
-              key={link}
-              href={`#${link.toLowerCase()}`} 
-              className={`${styles.navbarMobileLink} ${activeLink === link.toLowerCase() ? styles.active : ''}`}
+      {(isExpanded || isClosing) && (
+        <div ref={navbarMobileRef} className={`${styles.navbarMobile} ${isClosing ? styles.closing : ''}`}>
+          {[
+            { name: 'Inicio', id: 'home' },
+            { name: 'Habilidades', id: 'skills' },
+            { name: 'Proyectos', id: 'projects' }
+          ].map((link) => (
+            <button 
+              key={link.name}
+              className={`${styles.navbarMobileLink} ${activeLink === link.id ? styles.active : ''}`}
               onClick={() => {
-                onUpdateActiveLink(link.toLowerCase())
-                setIsExpanded(false)
+                onUpdateActiveLink(link.id)
+                scrollToSection(link.id)
               }}
             >
-              {link}
-            </Link>
+              {link.name}
+            </button>
           ))}
           <div className={styles.navbarMobileSocial}>
             {socialLinks.map((link, index) => (
@@ -115,11 +172,16 @@ export default function Navbar() {
             ))}
           </div>
           <div className={styles.navbarMobileConnect}>
-            <Link href="#connect" className={styles.connectButtonWrapper}>
-              <button className={styles.connectButton}>
-                <span>Contacto</span>
-              </button>
-            </Link>
+            <button 
+              className={styles.connectButton}
+              onClick={() => scrollToSection('connect')}
+            >
+              <span>Contacto</span>
+            </button>
+          </div>
+          <div className={styles.swipeIndicator}>
+            <ChevronUp size={24} />
+            <span>Desliza hacia arriba para cerrar</span>
           </div>
         </div>
       )}
