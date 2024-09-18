@@ -84,7 +84,7 @@ export default function Projects() {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-red-100 mb-4">Proyectos</h2>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4">Proyectos</h2>
           <p className="text-red-200 text-base md:text-lg tracking-wide leading-relaxed my-4 md:my-7 text-center mx-auto w-full md:w-[80%] lg:w-[56%]">
           En esta sección encontrarás una selección de proyectos que he desarrollado como frontend, utilizando tecnologías como JavaScript, TypeScript, React, Redux y Next.js. Mi enfoque está en crear interfaces de usuario modernas, intuitivas y altamente funcionales, optimizando la experiencia del usuario a través de un código limpio, eficiente y adaptable.
           </p>

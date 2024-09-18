@@ -41,7 +41,7 @@ export default function Navbar() {
     const touchEndY = e.touches[0].clientY
     const diff = touchStartY.current - touchEndY
 
-    if (diff > 50) { // Si el gesto hacia arriba es mayor a 50px
+    if (diff > 50) {
       closeNavbar()
     }
   }
@@ -60,7 +60,7 @@ export default function Navbar() {
       if (navbarMobileRef.current) {
         navbarMobileRef.current.style.height = ''
       }
-    }, 300) // Este tiempo debe coincidir con la duración de la transición en CSS
+    }, 300)
   }
 
   const scrollToSection = (sectionId: string) => {
@@ -135,7 +135,7 @@ export default function Navbar() {
             </div>
             <button 
               className={styles.connectButton}
-              onClick={() => scrollToSection('connect')}
+              onClick={() => scrollToSection('contacto')}
             >
               <span>Contacto</span>
             </button>
@@ -179,7 +179,7 @@ export default function Navbar() {
           <div className={styles.navbarMobileConnect}>
             <button 
               className={styles.connectButton}
-              onClick={() => scrollToSection('connect')}
+              onClick={() => scrollToSection('contacto')}
             >
               <span>Contacto</span>
             </button>

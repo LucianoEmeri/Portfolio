@@ -44,6 +44,13 @@ export default function Banner() {
     return () => { clearInterval(ticker) }
   }, [tick, delta])
 
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contacto')
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
     <section className="banner mt-0 pt-24 md:pt-32 lg:pt-64 pb-12 md:pb-16 lg:pb-24 relative overflow-hidden" id="home">
       <video 
@@ -74,14 +81,14 @@ export default function Banner() {
                 >
                   <span className="wrap">{text}</span>
                 </h2>
-                <p className="text-gray-300 text-base md:text-lg tracking-wide leading-relaxed w-full md:w-11/12">
+                <p className="text-red-200 text-base md:text-lg tracking-wide leading-relaxed w-full md:w-11/12">
                   Desarrollador web frontend junior con sólida formación en React, Next.js y tecnologías modernas.
                   Experiencia en gestión de inventarios y emprendimiento. Busco una posición desafiante donde
                   pueda aplicar mis habilidades técnicas y creativas para desarrollar soluciones web innovadoras y
-                  escalables
+                  escalables.
                 </p>
                 <button 
-                  onClick={() => console.log('connect')}
+                  onClick={scrollToContact}
                   className="text-white font-bold text-lg md:text-xl mt-8 md:mt-12 lg:mt-16 tracking-wide flex items-center transition-all duration-300 ease-in-out hover:translate-x-2"
                 >
                   Contacto <ArrowRightCircle className="ml-2.5 transition-all duration-300 ease-in-out text-red-700" size={25} />

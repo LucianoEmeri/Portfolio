@@ -18,7 +18,7 @@ const skills: Skill[] = [
   { name: 'TypeScript', icon: '/assets/skills/typescript.svg', proficiency: 85 },
   { name: 'Tailwind', icon: '/assets/skills/tailwind.svg', proficiency: 95 },
   { name: 'Next.js', icon: '/assets/skills/nextjs.svg', proficiency: 95 },
-  { name: 'React.js', icon: '/assets/skills/react.svg', proficiency: 80 },
+  { name: 'React.js', icon: '/assets/skills/react.svg', proficiency: 85 },
   { name: 'Redux', icon: '/assets/skills/redux.svg', proficiency: 80 },
 ]
 
@@ -79,7 +79,7 @@ export default function Skills() {
           viewport={{ once: true }}
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-white mb-4">Tech Stack Favorito</h2>
-          <p className="text-gray-300 text-base md:text-lg tracking-wide leading-relaxed my-4 md:my-7 text-center mx-auto max-w-2xl">
+          <p className="text-red-200 text-base md:text-lg tracking-wide leading-relaxed my-4 md:my-7 text-center mx-auto max-w-2xl">
             Estas son las tecnologías que más disfruto usar y en las que tengo mayor experiencia.
           </p>
         </motion.div>

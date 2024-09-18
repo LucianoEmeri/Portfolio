@@ -116,3 +116,10 @@ p.danger {
     @apply border-r-[0.08em] border-red-600;
   }
 }
+
+/* Estilos para la selección */
+
+::selection {
+  background-color: black;
+  color: red;
+}

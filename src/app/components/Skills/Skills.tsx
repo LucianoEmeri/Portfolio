@@ -63,7 +63,7 @@ export default function Component() {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center text-red-100 mb-4">Mis Habilidades Técnicas</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4">Mis Habilidades Técnicas</h2>
           <p className="text-red-200 text-sm sm:text-base md:text-lg tracking-wide leading-relaxed my-4 md:my-7 text-center mx-auto w-full sm:w-[90%] md:w-[80%] lg:w-[56%]">
             Estas son las tecnologías y herramientas con las que trabajo para crear soluciones web modernas, eficientes y escalables.
           </p>
