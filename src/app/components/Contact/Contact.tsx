@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from "react"
 import { motion, useInView } from "framer-motion"
+import WhatsAppButton from './whatsapp-button';
 
 interface FormDetails {
   firstName: string
@@ -140,6 +141,7 @@ export default function Contact() {
             )}
           </motion.div>
         </motion.div>
+        <WhatsAppButton phoneNumber="+543435048422" message="Hola, estoy interesado en tus servicios." />
       </div>
     </section>
   )

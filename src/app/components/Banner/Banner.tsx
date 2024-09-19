@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import Image from "next/image"
-import { ArrowRightCircle } from 'lucide-react'
+import { ArrowDownCircle } from 'lucide-react'
 import TrackVisibility from 'react-on-screen'
 
 export default function Banner() {
@@ -44,11 +44,13 @@ export default function Banner() {
     return () => { clearInterval(ticker) }
   }, [tick, delta])
 
-  const scrollToContact = () => {
-    const contactSection = document.getElementById('contacto')
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' })
-    }
+  const handleDownloadCV = () => {
+    const link = document.createElement('a')
+    link.href = '/LucianoEmeri_CV.pdf'
+    link.download = 'LucianoEmeri_CV.pdf'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
   }
 
   return (
@@ -88,10 +90,10 @@ export default function Banner() {
                   escalables.
                 </p>
                 <button 
-                  onClick={scrollToContact}
-                  className="text-white font-bold text-lg md:text-xl mt-8 md:mt-12 lg:mt-16 tracking-wide flex items-center transition-all duration-300 ease-in-out hover:translate-x-2"
+                  onClick={handleDownloadCV}
+                  className="text-white font-bold text-lg md:text-xl mt-8 md:mt-12 lg:mt-16 tracking-wide flex items-center transition-all duration-300 ease-in-out hover:translate-y-1"
                 >
-                  Contacto <ArrowRightCircle className="ml-2.5 transition-all duration-300 ease-in-out text-red-700" size={25} />
+                  Descarga mi CV <ArrowDownCircle className="ml-2.5 transition-all duration-300 ease-in-out text-red-700" size={25} />
                 </button>
               </div>
             )}
