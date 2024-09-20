@@ -1,5 +1,6 @@
-import { Metadata } from 'next';
-import "./globals.css";
+import React from 'react'
+import { Metadata } from 'next'
+import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Luciano Emerí ▸ Portfolio',
@@ -23,18 +24,25 @@ export const metadata: Metadata = {
     locale: 'es_AR',
     type: 'website',
   },
-};
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Luciano Emerí ▸ Portfolio',
+    description: 'Desarrollador web frontend con experiencia en React, Next.js y tecnologías modernas.',
+    images: ['https://lucianoemeri.com.ar/assets/profile.jpg'],
+  },
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="es">
-      <body>
-        {children}
-      </body>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
+      <body>{children}</body>
     </html>
-  );
+  )
 }

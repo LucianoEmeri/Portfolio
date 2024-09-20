@@ -2,7 +2,8 @@
 
 import React, { useState, useRef } from "react"
 import { motion, useInView } from "framer-motion"
-import WhatsAppButton from './whatsapp-button';
+import { ArrowRightCircle } from 'lucide-react'
+import WhatsAppButton from './whatsapp-button'
 
 interface FormDetails {
   firstName: string
@@ -127,11 +128,19 @@ export default function Contact() {
               ></textarea>
               <motion.button
                 type="submit"
-                className="w-full bg-gradient-to-r from-red-900/50 to-red-600/50 text-white py-3 px-6 rounded-lg hover:from-red-600 hover:to-red-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition-all duration-300 ease-in-out text-xl font-semibold"
+                className="group inline-flex items-center justify-center w-full px-6 py-3 text-lg md:text-xl font-semibold rounded bg-gradient-to-r from-black to-red-600/50 text-white border border-white/50 hover:from-red-600/50 hover:to-black transition duration-300 animate__animated animate__fadeIn animate__delay-2s"
               >
-              <span className="inline-block transition duration-300 hover:scale-110">
-              {buttonText}
-              </span>
+                <span className="inline-flex items-center">
+                  <span className="relative overflow-hidden mr-3">
+                    <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">
+                      {buttonText}
+                    </span>
+                    <span className="absolute top-full left-0 inline-block transition-transform duration-500 group-hover:-translate-y-full">
+                      {buttonText}
+                    </span>
+                  </span>
+                  <ArrowRightCircle className="transition-transform duration-300 group-hover:translate-x-1" size={24} />
+                </span>
               </motion.button>
             </form>
             {status.message && (
