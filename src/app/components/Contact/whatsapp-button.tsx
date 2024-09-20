@@ -11,7 +11,7 @@ export default function WhatsAppButton({ phoneNumber = "+543435048422", message 
   return (
     <button
       onClick={openWhatsApp}
-      className="fixed bottom-4 right-4 bg-white hover:bg-black rounded-full p-3 shadow-lg transition-all duration-300 ease-in-out transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 z-50"
+      className="fixed bottom-4 right-4 bg-white hover:bg-black rounded-full p-3 shadow-lg transition-all duration-300 ease-in-out transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 z-50 group"
       aria-label="Abrir chat de WhatsApp"
     >
       <div className="relative w-7 h-7">
@@ -19,7 +19,7 @@ export default function WhatsAppButton({ phoneNumber = "+543435048422", message 
           src="/assets/skills/whatsapp.svg"
           alt="WhatsApp Icon"
           layout="fill"
-          className="transition-all duration-300 invert-0 hover:invert"
+          className="transition-all duration-300 group-hover:filter group-hover:invert"
         />
       </div>
     </button>

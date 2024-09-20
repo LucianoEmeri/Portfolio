@@ -56,7 +56,7 @@
 }
 
 .navbarLink {
-  color: white;
+  color: #ffffff;
   font-size: 1.125rem;
   font-weight: normal;
   opacity: 0.75;
@@ -135,8 +135,8 @@
 
 .connectButton {
   font-weight: 700;
-  color: #fff;
-  border: 1px solid #fff;
+  color: #ffffff;
+  border: 1px solid #ffffff;
   padding: 10px 34px;
   font-size: 18px;
   margin-left: 18px;
@@ -155,7 +155,7 @@
   width: 0%;
   height: 100%;
   position: absolute;
-  background-color: #fff;
+  background-color: #ffffff;
   left: 0;
   top: 0;
   transition: 0.3s ease-in-out;
@@ -182,7 +182,7 @@
 }
 
 .toggleButton {
-  color: white;
+  color: #ffffff;
   background: none;
   border: none;
   cursor: pointer;
@@ -204,7 +204,7 @@
 
 .navbarMobileLink {
   display: block;
-  color: white;
+  color: #ffffff;
   font-size: 1.125rem;
   font-weight: normal;
   opacity: 0.75;
@@ -251,7 +251,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: white;
+  color: #ffffff;
   opacity: 0.7;
   margin-top: 1rem;
   animation: bounce 2s infinite;
