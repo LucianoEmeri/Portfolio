@@ -4,6 +4,7 @@ import React, { useState, useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import { ArrowRightCircle } from 'lucide-react'
 import WhatsAppButton from './whatsapp-button'
+import Swal from 'sweetalert2'
 
 interface FormDetails {
   firstName: string
@@ -54,7 +55,21 @@ export default function Contact() {
       setButtonText("Enviar")
 
       if (response.ok) {
-        setStatus({ success: true, message: "Mensaje enviado con éxito" })
+        Swal.fire({
+          title: '¡Éxito!',
+          text: 'Mensaje enviado con éxito',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#dc2626',
+          color: '#ffffff',
+          backdrop: `
+            rgba(0,0,0,0.4)
+            url("/images/nyan-cat.gif")
+            left top
+            no-repeat
+          `
+        })
+        setStatus({ success: true, message: "" })
       } else {
         throw new Error(result.error || "Algo salió mal")
       }

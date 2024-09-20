@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    background-color: black;
-    color: white;
-    font-family: Centra;
-}
-
 @font-face {
 	font-family: Centra;
 	src: url('../assets/font/CentraNo2-Bold.ttf');
@@ -22,6 +16,12 @@ body {
 	font-family: Centra;
 	src: url('../assets/font/CentraNo2-Book.ttf');
 	font-weight: 400;
+}
+
+body {
+    background-color: black;
+    color: white;
+    font-family: Centra, sans-serif;
 }
 
 .cursor-pointer-custom {
@@ -118,14 +118,12 @@ p.danger {
 }
 
 /* Estilos para la selección */
-
 ::selection {
   background-color: black;
   color: red;
 }
 
 /* Estilos para el banner */
-
 @layer utilities {
   .animate-pronounced-updown {
     animation: pronounced-updown 3s ease-in-out infinite;
@@ -139,4 +137,66 @@ p.danger {
       transform: translateY(-30px);
     }
   }
+}
+
+/* Animaciones para Alertas */
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeOutUp {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+@keyframes pulse {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+/* Estilos para las Alertas */
+
+.swal2-popup {
+  background: rgba(0, 0, 0, 0.86) !important;
+  border-radius: 10px;
+}
+
+.swal2-title {
+  color: #ffffff !important;
+}
+
+.swal2-html-container {
+  color: #f1f1f1 !important;
+}
+
+.swal2-confirm {
+  background-color: #dc2626 !important;
+}
+
+.swal2-popup.swal2-show {
+  animation: fadeInDown 0.3s;
+}
+
+.swal2-popup.swal2-hide {
+  animation: fadeOutUp 0.3s;
 }
