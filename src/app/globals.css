@@ -4,24 +4,39 @@
 
 @font-face {
 	font-family: Centra;
-	src: url('../assets/font/CentraNo2-Bold.ttf');
+	src: url('/assets/fonts/CentraNo2-Bold.ttf');
 	font-weight: 700;
 }
 @font-face {
 	font-family: Centra;
-	src: url('../assets/font/CentraNo2-Medium.ttf');
+	src: url('/assets/fonts/CentraNo2-Medium.ttf');
 	font-weight: 500;
 }
 @font-face {
 	font-family: Centra;
-	src: url('../assets/font/CentraNo2-Book.ttf');
+	src: url('/assets/fonts/CentraNo2-Book.ttf');
 	font-weight: 400;
+}
+
+:root {
+  color-scheme: light dark;
 }
 
 body {
     background-color: black;
     color: white;
     font-family: Centra, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: black;
+    color: white;
+  }
+  
+  img, svg {
+    filter: brightness(1) invert(0);
+  }
 }
 
 .cursor-pointer-custom {

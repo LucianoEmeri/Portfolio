@@ -10,8 +10,10 @@ export default function Banner() {
   const [isDeleting, setIsDeleting] = useState(false)
   const [text, setText] = useState('')
   const [delta, setDelta] = useState(300 - Math.random() * 100)
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false)
   const period = 2000
-  const textRef = useRef(null)
+  const textRef = useRef<HTMLHeadingElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   const toRotate = useMemo(() => ["Frontend Developer", "Desarrollador Web"], [])
 
@@ -44,6 +46,23 @@ export default function Banner() {
     return () => { clearInterval(ticker) }
   }, [tick, delta])
 
+  useEffect(() => {
+    const videoElement = videoRef.current
+    if (videoElement) {
+      videoElement.addEventListener('loadeddata', () => {
+        setIsVideoLoaded(true)
+      })
+    }
+
+    return () => {
+      if (videoElement) {
+        videoElement.removeEventListener('loadeddata', () => {
+          setIsVideoLoaded(true)
+        })
+      }
+    }
+  }, [])
+
   const handleDownloadCV = () => {
     const link = document.createElement('a')
     link.href = '/LucianoEmeri_CV.pdf'
@@ -55,7 +74,9 @@ export default function Banner() {
 
   return (
     <section className="banner mt-0 pt-24 md:pt-32 lg:pt-64 pb-12 md:pb-16 lg:pb-24 relative overflow-hidden" id="home">
+      <div className={`fixed top-0 left-0 w-full h-full bg-black z-[-1] transition-opacity duration-500 ${isVideoLoaded ? 'opacity-0' : 'opacity-100'}`} />
       <video 
+        ref={videoRef}
         autoPlay 
         loop 
         muted 
