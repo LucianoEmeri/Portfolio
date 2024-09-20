@@ -1,20 +1,39 @@
 import { Metadata } from 'next';
 import "./globals.css";
-import Home from "./Home/page";
 
 export const metadata: Metadata = {
   title: 'Luciano Emerí ▸ Portfolio',
-  description: 'Bienvenido a mi portfolio',
+  description: 'Bienvenido a mi portfolio. Desarrollador web frontend con experiencia en React, Next.js y tecnologías modernas.',
+  icons: {
+    icon: '/favicon.ico',
+  },
+  openGraph: {
+    title: 'Luciano Emerí ▸ Portfolio',
+    description: 'Bienvenido a mi portfolio. Desarrollador web frontend con experiencia en React, Next.js y tecnologías modernas.',
+    url: 'https://lucianoemeri.com.ar',
+    siteName: 'Portfolio de Luciano Emerí',
+    images: [
+      {
+        url: 'https://lucianoemeri.com.ar/assets/profile.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Luciano Emerí Portfolio',
+      },
+    ],
+    locale: 'es_AR',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
-}: Readonly<{
+  children,
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="es">
       <body>
-        <Home/>
+        {children}
       </body>
     </html>
   );

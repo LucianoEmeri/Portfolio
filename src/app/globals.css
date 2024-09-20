@@ -123,3 +123,20 @@ p.danger {
   background-color: black;
   color: red;
 }
+
+/* Estilos para el banner */
+
+@layer utilities {
+  .animate-pronounced-updown {
+    animation: pronounced-updown 3s ease-in-out infinite;
+  }
+
+  @keyframes pronounced-updown {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-30px);
+    }
+  }
+}

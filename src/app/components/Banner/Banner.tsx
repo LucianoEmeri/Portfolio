@@ -100,16 +100,16 @@ export default function Banner() {
           </TrackVisibility>
           <TrackVisibility className="w-full md:w-1/2 xl:w-5/12 flex justify-center mt-8 md:mt-0">
             {({ isVisible }) => (
-              <div className={`${isVisible ? "animate__animated animate__zoomIn" : ""} w-64 h-64 md:w-80 md:h-80 lg:w-[26rem] lg:h-[26rem] rounded-full overflow-hidden`}>
-                <div className="w-full h-full relative animate-subtle-updown">
+              <div className={`${isVisible ? "animate__animated animate__zoomIn" : ""} w-64 h-64 md:w-80 md:h-80 lg:w-[26rem] lg:h-[26rem] rounded-full overflow-hidden p-3 md:p-0`}>
+                <div className="w-full h-full relative animate-pronounced-updown">
                   <div className="absolute inset-0 rounded-full overflow-hidden">
                     <Image 
-                      src="/assets/LUBLACK.jpg"
+                      src="/assets/profile.jpg"
                       alt="Imagen de Luciano" 
                       layout="fill"
                       objectFit="cover"
-                      objectPosition="center 50%"
                       quality={100}
+                      className="object-[center_20%] sm:object-[center_15%] md:object-center"
                     />
                   </div>
                 </div>
