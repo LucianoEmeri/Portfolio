@@ -73,7 +73,7 @@ export default function Banner() {
   }
 
   return (
-    <section className="banner mt-0 pt-24 md:pt-32 lg:pt-64 pb-12 md:pb-16 lg:pb-24 relative overflow-hidden" id="home">
+    <section className="banner mt-0 pt-24 md:pt-32 lg:pt-40 pb-12 md:pb-16 lg:pb-24 relative overflow-hidden min-h-screen flex items-center" id="home">
       <div className={`fixed top-0 left-0 w-full h-full bg-black z-[-1] transition-opacity duration-500 ${isVideoLoaded ? 'opacity-0' : 'opacity-100'}`} />
       <video 
         ref={videoRef}
@@ -87,7 +87,7 @@ export default function Banner() {
         Tu navegador no soporta el tag de video.
       </video>
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col md:flex-row items-center">
+        <div className="flex flex-col md:flex-row items-center justify-between">
           <TrackVisibility className="w-full md:w-1/2 xl:w-7/12 mb-12 md:mb-0">
             {({ isVisible }) => (
               <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
@@ -104,7 +104,7 @@ export default function Banner() {
                 >
                   <span className="wrap">{text}</span>
                 </h2>
-                <p className="text-red-200 text-base md:text-lg tracking-wide leading-relaxed w-full md:w-11/12">
+                <p className="text-red-200 text-base md:text-lg lg:text-xl tracking-wide leading-relaxed w-full md:w-11/12">
                   Desarrollador web frontend junior con sólida formación en React, Next.js y tecnologías modernas.
                   Experiencia en gestión de inventarios y emprendimiento. Busco una posición desafiante donde
                   pueda aplicar mis habilidades técnicas y creativas para desarrollar soluciones web innovadoras y
@@ -112,7 +112,7 @@ export default function Banner() {
                 </p>
                 <button 
                   onClick={handleDownloadCV}
-                  className="text-white font-bold text-lg md:text-xl mt-8 md:mt-12 lg:mt-16 tracking-wide flex items-center transition-all duration-300 ease-in-out hover:translate-y-1"
+                  className="text-white font-bold text-lg md:text-xl lg:text-2xl mt-8 md:mt-12 lg:mt-16 tracking-wide flex items-center transition-all duration-300 ease-in-out hover:translate-y-1"
                 >
                   Descarga mi CV <ArrowDownCircle className="ml-2.5 transition-all duration-300 ease-in-out text-red-700" size={25} />
                 </button>

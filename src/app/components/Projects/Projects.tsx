@@ -87,7 +87,7 @@ export default function Component() {
   }
 
   return (
-    <section id="projects" className="relative py-12 md:py-16 lg:py-20">
+    <section id="projects" className="relative py-12 md:py-16 lg:pt-36">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -96,7 +96,7 @@ export default function Component() {
           viewport={{ once: true }}
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4">Proyectos</h2>
-          <p className="text-red-200 text-base md:text-lg tracking-wide leading-relaxed my-4 md:my-7 text-center mx-auto w-full md:w-[80%] lg:w-[56%]">
+          <p className="text-red-200 text-base md:text-lg lg:text-xl tracking-wide leading-relaxed my-4 md:my-7 text-center mx-auto w-full md:w-[80%] lg:w-[56%]">
             En esta sección encontrarás una selección de proyectos que he desarrollado como frontend, utilizando tecnologías como JavaScript, TypeScript, React, Redux y Next.js. Mi enfoque está en crear interfaces de usuario modernas, intuitivas y altamente funcionales, optimizando la experiencia del usuario a través de un código limpio, eficiente y adaptable.
           </p>
 
