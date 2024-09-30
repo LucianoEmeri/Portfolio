@@ -16,7 +16,7 @@ const ProjectCard: React.FC<Project & { onClick: () => void }> = ({ title, descr
   
   return (
     <div 
-      className={`proj-imgbx relative rounded-3xl overflow-hidden group ${isPlaceholder ? 'cursor-not-allowed' : 'cursor-pointer'}`} 
+      className={`proj-imgbx relative rounded-3xl overflow-hidden group ${isPlaceholder ? 'cursor-not-allowed' : 'cursor-pointer'} h-full`} 
       onClick={onClick}
     >
       <Image
@@ -25,7 +25,7 @@ const ProjectCard: React.FC<Project & { onClick: () => void }> = ({ title, descr
         width={500}
         height={400}
         quality={100}
-        className="w-full h-auto"
+        className="w-full h-full object-cover"
       />
       <div className="proj-txtx absolute text-center top-[65%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ease-in-out opacity-0 w-full group-hover:top-1/2 group-hover:opacity-100 z-10">
         <h4 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide leading-tight mb-2 text-white">{title}</h4>
@@ -136,12 +136,13 @@ export default function Component() {
                 <Tab.Panel
                   key={idx}
                   className={classNames(
-                    'rounded-xl bg-red-900/20 p-3 md:p-4',
+                    'rounded-xl bg-red-900/20 p-3 md:p-4 projects-panel'
                   )}
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 projects-grid">
                     {posts.slice(0, 3).map((project, index) => (
                       <div key={index} className={classNames(
+                        'project-card-wrapper',
                         index === 2 ? 'md:hidden lg:block' : ''
                       )}>
                         <ProjectCard
@@ -208,6 +209,37 @@ export default function Component() {
           </div>
         </div>
       )}
+      
+      <style jsx global>{`
+        @media (min-width: 1921px) {
+          .projects-panel {
+            max-width: 1920px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+          .projects-grid {
+            max-width: 1800px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+          .project-card-wrapper {
+            max-width: 580px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
+        .projects-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 1rem;
+        }
+        .project-card-wrapper {
+          height: 100%;
+        }
+        .proj-imgbx {
+          aspect-ratio: 4 / 3;
+        }
+      `}</style>
     </section>
   )
 }
