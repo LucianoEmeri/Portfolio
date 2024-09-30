@@ -74,18 +74,20 @@ export default function Banner() {
 
   return (
     <section className="banner mt-0 pt-24 md:pt-32 lg:pt-40 pb-12 md:pb-16 lg:pb-24 relative overflow-hidden min-h-screen flex items-center" id="home">
-      <div className={`fixed top-0 left-0 w-full h-full bg-black z-[-1] transition-opacity duration-500 ${isVideoLoaded ? 'opacity-0' : 'opacity-100'}`} />
-      <video 
-        ref={videoRef}
-        autoPlay 
-        loop 
-        muted 
-        playsInline
-        className="fixed top-0 left-0 w-full h-full object-cover z-[-1]"
-      >
-        <source src="/assets/videoplayback.webm" type="video/webm" />
-        Tu navegador no soporta el tag de video.
-      </video>
+      <div className={`fixed top-0 left-0 w-full h-full bg-black z-[-2] transition-opacity duration-500 ${isVideoLoaded ? 'opacity-0' : 'opacity-100'}`} />
+      <div className="fixed top-0 left-0 w-full h-full overflow-hidden z-[-1]">
+        <video 
+          ref={videoRef}
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto transform -translate-x-1/2 -translate-y-1/2 object-cover"
+        >
+          <source src="/assets/videoplayback.webm" type="video/webm" />
+          Tu navegador no soporta el tag de video.
+        </video>
+      </div>
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <TrackVisibility className="w-full md:w-1/2 xl:w-7/12 mb-12 md:mb-0">
