@@ -84,7 +84,7 @@ export default function Banner() {
           playsInline
           className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto max-w-none transform -translate-x-1/2 -translate-y-1/2 object-cover"
         >
-          <source src="/assets/videoplayback.webm" type="video/webm" />
+          <source src="https://res.cloudinary.com/dhm3hgkzo/video/upload/v1728376504/videoplayback_s6d7a3.webm" type="video/webm" />
           Tu navegador no soporta el tag de video.
         </video>
       </div>
