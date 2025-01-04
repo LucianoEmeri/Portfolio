@@ -24,11 +24,14 @@ export const projects: Project[] = [
     videoUrl: "https://www.youtube.com/embed/ahBPL0PhBL8",
     liveUrl: "https://ribuzz.vercel.app/",
     githubUrl: "https://github.com/FT51Grupo02/ribuzz-general",
-    longDescription: "Realizado en Agosto de 2024 como experiencia académica del Henry Bootcamp. Aplicación que tenía como objetivo crear una plataforma de marketplace completa para emprendedores, permitiendo la venta de productos, servicios y gestión de eventos. Desarrollada utilizando React, Next.js, y Tailwind CSS. Implementa un sistema de búsqueda avanzado con filtros múltiples, integra sistemas de pago seguros (Stripe) y autenticación robusta (Google OAuth, JWT). Incluye un calendario interactivo para eventos de networking. El rendimiento de la aplicación está optimizado mediante técnicas como debouncing y lazy loading."
+    longDescription: "Página realizada en grupo conformado por 3 backend y 2 frontend como parte del proyecto final del Bootcamp de Henry. Este proyecto es una plataforma de marketplace integral diseñada para emprendedores, ofreciendo funcionalidades clave como venta de productos, servicios y gestión de eventos. Desarrollado con React, Next.js y Tailwind CSS, cuenta con características avanzadas que destacan mi habilidad en frontend: un sistema de búsqueda optimizado con filtros múltiples, integración de pagos seguros a través de Stripe y autenticación robusta mediante Google OAuth y JWT. Implementé un calendario interactivo para la organización de eventos de networking, aprovechando la biblioteca FullCalendar para una experiencia fluida. Adicionalmente, la aplicación incluye optimizaciones de rendimiento como debouncing y lazy loading, asegurando una experiencia de usuario rápida y eficiente. También utilicé Leaflet para mapas dinámicos y react-toastify para notificaciones en tiempo real. Este proyecto resalta mi capacidad de trabajar con herramientas modernas como Cloudinary, Formik/Yup, y Google Maps API, además de manejar sistemas de diseño como Flowbite y Material Tailwind. Una experiencia completa que refleja habilidades en la creación de aplicaciones escalables y funcionales."
   },
   {
-    title: "Proyecto X",
-    description: "En proceso...",
+    title: "Mountain Ops",
+    description: "Gestor de turnos para Airsoft",
     imgUrl: "/assets/project-img3.png",
+    liveUrl: "https://mountain-ops.vercel.app/",
+    githubUrl: "https://github.com/LucianoEmeri/MountainOps",
+    longDescription: "Desarrollado como parte del módulo 3 del Bootcamp de Henry, Mountain Ops es una aplicación de gestión de turnos diseñada específicamente para partidas de Airsoft. Construida con React y Vite para un rendimiento rápido y eficiente, la aplicación utiliza React Router para una navegación fluida y React Redux junto con Redux Toolkit para manejar el estado de manera centralizada, asegurando una gestión coherente y escalable de los datos de la aplicación. Además, se integró Axios para interactuar con la API y gestionar datos en tiempo real, mientras que SweetAlert2 mejora la experiencia del usuario con alertas y notificaciones dinámicas. La plataforma permite a los usuarios gestionar horarios, registrar participantes y organizar partidas de manera intuitiva. Este proyecto resalta mis habilidades en el manejo de herramientas modernas de frontend y en la creación de aplicaciones enfocadas en resolver necesidades específicas."
   },
 ];
