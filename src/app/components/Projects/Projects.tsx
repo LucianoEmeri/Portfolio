@@ -6,17 +6,26 @@ import { Tab } from "@headlessui/react"
 import { motion } from "framer-motion"
 import { X, Github, ExternalLink, Lock } from "lucide-react"
 import { type Project, projects } from "./projectsData"
+import { TechStack } from "./tech-stack-icons"
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ")
 }
 
-const ProjectCard: React.FC<Project & { onClick: () => void }> = ({ title, description, imgUrl, onClick }) => {
+const ProjectCard: React.FC<Project & { onClick: () => void }> = ({
+  title,
+  description,
+  imgUrl,
+  onClick,
+  stack = [],
+}) => {
   const isPlaceholder = title === "Proyecto X"
 
   return (
     <div
-      className={`proj-imgbx relative rounded-3xl overflow-hidden group ${isPlaceholder ? "cursor-not-allowed" : "cursor-pointer"} h-full w-full`}
+      className={`proj-imgbx relative rounded-3xl overflow-hidden group ${
+        isPlaceholder ? "cursor-not-allowed" : "cursor-pointer"
+      } h-full w-full`}
       onClick={onClick}
     >
       <div className="aspect-w-4 aspect-h-3 w-full">
@@ -27,11 +36,20 @@ const ProjectCard: React.FC<Project & { onClick: () => void }> = ({ title, descr
           {title}
         </h4>
         <span className="font-extralight text-base md:text-lg tracking-wide text-white">{description}</span>
-        {isPlaceholder && (
+        {isPlaceholder ? (
           <div className="mt-4">
             <Lock className="w-8 h-8 mx-auto text-white/80" />
           </div>
-        )}
+        ) : stack.length > 0 ? (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="mt-4"
+          >
+            <TechStack technologies={stack} variant="card" />
+          </motion.div>
+        ) : null}
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-black to-red-900 opacity-80 transition-all duration-400 ease-in-out h-0 group-hover:h-full"></div>
     </div>
@@ -163,7 +181,7 @@ export default function Component() {
           onClick={closeModal}
         >
           <div
-            className="relative bg-black text-white p-4 sm:p-6 md:p-8 lg:p-10 rounded-xl max-w-full sm:max-w-lg md:max-w-2xl lg:max-w-4xl w-[95%] sm:w-full bg-opacity-80 max-h-[90vh] overflow-y-auto"
+            className="relative bg-black text-white p-3 sm:p-4 md:p-6 lg:p-8 rounded-xl max-w-full sm:max-w-lg md:max-w-2xl lg:max-w-4xl w-[95%] sm:w-full bg-opacity-80 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -176,6 +194,22 @@ export default function Component() {
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-3 sm:mb-4 md:mb-6 lg:mb-8 text-white pr-8">
               {selectedProject.title}
             </h2>
+
+            {selectedProject.stack && selectedProject.stack.length > 0 && (
+              <div className="mb-6 text-center">
+                <h3 className="text-lg font-medium mb-3 text-red-200 uppercase tracking-wider">
+                  Tecnologías Utilizadas
+                </h3>
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+                  <TechStack
+                    technologies={selectedProject.stack}
+                    variant="modal"
+                    className="max-w-3xl mx-auto px-4 gap-2 md:gap-3 lg:gap-4 pb-4"
+                  />
+                </motion.div>
+              </div>
+            )}
+
             <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed mb-4 sm:mb-6 md:mb-8 text-red-100">
               {selectedProject.longDescription || selectedProject.description}
             </p>

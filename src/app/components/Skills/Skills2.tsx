@@ -4,7 +4,8 @@ import React from 'react'
 import Image from 'next/image'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion'
+import { motion, useMotionValue, animate } from 'framer-motion'
+// import { useTransform } from 'framer-motion'
 
 interface Skill {
   name: string
@@ -13,12 +14,12 @@ interface Skill {
 }
 
 const skills: Skill[] = [
-  { name: 'CSS', icon: '/assets/skills/css.svg', proficiency: 90 },
-  { name: 'JavaScript', icon: '/assets/skills/javascript.svg', proficiency: 80 },
+  { name: 'CSS', icon: '/assets/skills/css.svg', proficiency: 85 },
+  { name: 'JavaScript', icon: '/assets/skills/javascript.svg', proficiency: 85 },
   { name: 'TypeScript', icon: '/assets/skills/typescript.svg', proficiency: 85 },
   { name: 'Tailwind', icon: '/assets/skills/tailwind.svg', proficiency: 95 },
   { name: 'Next.js', icon: '/assets/skills/nextjs.svg', proficiency: 95 },
-  { name: 'React.js', icon: '/assets/skills/react.svg', proficiency: 85 },
+  { name: 'React.js', icon: '/assets/skills/react.svg', proficiency: 90 },
   { name: 'Redux', icon: '/assets/skills/redux.svg', proficiency: 80 },
 ]
 
@@ -31,7 +32,7 @@ const responsive = {
 
 function SkillItem({ skill }: { skill: Skill }) {
   const count = useMotionValue(0)
-  const rounded = useTransform(count, (latest) => `${Math.round(latest)}%`)
+  // const rounded = useTransform(count, (latest) => `${Math.round(latest)}%`)
 
   React.useEffect(() => {
     const animation = animate(count, skill.proficiency, { duration: 1.5, ease: "easeOut" })
@@ -63,7 +64,7 @@ function SkillItem({ skill }: { skill: Skill }) {
           viewport={{ once: true }}
         ></motion.div>
       </div>
-      <motion.span className="mt-2 text-sm text-gray-400">{rounded}</motion.span>
+      {/* <motion.span className="mt-2 text-sm text-gray-400">{rounded}</motion.span> */}
     </motion.div>
   )
 }
