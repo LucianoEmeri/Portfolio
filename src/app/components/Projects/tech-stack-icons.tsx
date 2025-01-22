@@ -1,3 +1,6 @@
+"use client"
+
+import { useRef, useEffect, useState } from "react"
 import {
   Blocks,
   LayoutTemplate,
@@ -42,10 +45,49 @@ interface TechStackProps {
   variant?: "card" | "modal"
 }
 
+const useContainerWidth = () => {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [visibleIcons, setVisibleIcons] = useState<number>(0)
+
+  useEffect(() => {
+    const calculateVisibleIcons = () => {
+      if (!containerRef.current) return
+
+      const containerWidth = containerRef.current.offsetWidth
+      // Calculamos el espacio que ocupa cada icono (incluyendo el gap)
+      const iconWidth = 48 // Aproximadamente el ancho del icono + padding
+      const gap = 12 // gap-3 = 0.75rem = 12px
+      const availableWidth = containerWidth - gap
+
+      // Calculamos cuántos iconos caben en el contenedor
+      const iconsPerRow = Math.floor(availableWidth / (iconWidth + gap))
+      setVisibleIcons(Math.max(3, iconsPerRow)) // Mínimo 3 iconos
+    }
+
+    calculateVisibleIcons()
+
+    const observer = new ResizeObserver(calculateVisibleIcons)
+    if (containerRef.current) {
+      observer.observe(containerRef.current)
+    }
+
+    window.addEventListener("resize", calculateVisibleIcons)
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener("resize", calculateVisibleIcons)
+    }
+  }, [])
+
+  return { containerRef, visibleIcons }
+}
+
 export function TechStack({ technologies, className = "", variant = "card" }: TechStackProps) {
+  const { containerRef, visibleIcons } = useContainerWidth()
+
   return (
-    <div className={`flex flex-wrap justify-center gap-3 ${className}`}>
-      {technologies.map((tech) =>
+    <div ref={containerRef} className={`flex flex-wrap justify-center gap-3 ${className}`}>
+      {technologies.slice(0, visibleIcons).map((tech) =>
         iconMap[tech] ? (
           <div key={tech} className="relative group">
             <div className="p-2 md:p-3 bg-red-950/50 rounded-lg hover:bg-red-900/50 transition-colors duration-200">
@@ -55,11 +97,11 @@ export function TechStack({ technologies, className = "", variant = "card" }: Te
             {(variant === "modal" || variant === "card") && (
               <span
                 className={`absolute px-2 py-1 bg-black/90 text-white text-[10px] md:text-xs rounded-md 
-                  transition-all duration-200 whitespace-nowrap pointer-events-none z-50
+                  transition-all duration-200 whitespace-nowrap pointer-events-none z-50 opacity-0 group-hover:opacity-100
                   ${
                     variant === "card"
-                      ? "opacity-0 group-hover:opacity-100 left-1/2 -translate-x-1/2 -bottom-8 translate-y-0 group-hover:translate-y-1 hidden md:block"
-                      : "opacity-0 group-hover:opacity-100 left-1/2 -translate-x-1/2 top-full mt-1"
+                      ? "left-1/2 -translate-x-1/2 -bottom-8"
+                      : "left-1/2 -translate-x-1/2 top-full mt-1"
                   }`}
               >
                 {tech}
