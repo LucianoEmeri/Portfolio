@@ -54,12 +54,10 @@ const useContainerWidth = () => {
       if (!containerRef.current) return
 
       const containerWidth = containerRef.current.offsetWidth
-      // Calculamos el espacio que ocupa cada icono (incluyendo el gap)
       const iconWidth = 48 // Aproximadamente el ancho del icono + padding
       const gap = 12 // gap-3 = 0.75rem = 12px
       const availableWidth = containerWidth - gap
 
-      // Calculamos cuántos iconos caben en el contenedor
       const iconsPerRow = Math.floor(availableWidth / (iconWidth + gap))
       setVisibleIcons(Math.max(3, iconsPerRow)) // Mínimo 3 iconos
     }
@@ -82,27 +80,24 @@ const useContainerWidth = () => {
   return { containerRef, visibleIcons }
 }
 
-export function TechStack({ technologies, className = "", variant = "card" }: TechStackProps) {
+export function TechStack({ technologies, className = "", variant }: TechStackProps) {
   const { containerRef, visibleIcons } = useContainerWidth()
 
   return (
     <div ref={containerRef} className={`flex flex-wrap justify-center gap-3 ${className}`}>
       {technologies.slice(0, visibleIcons).map((tech) =>
         iconMap[tech] ? (
-          <div key={tech} className="relative group">
+          <div key={tech} className="relative group/icon">
             <div className="p-2 md:p-3 bg-red-950/50 rounded-lg hover:bg-red-900/50 transition-colors duration-200">
-              <div className="text-white/80 group-hover:text-white transition-colors duration-200">{iconMap[tech]}</div>
+              <div className="text-white/80 group-hover/icon:text-white transition-colors duration-200">
+                {iconMap[tech]}
+              </div>
             </div>
-
-            {(variant === "modal" || variant === "card") && (
+            {variant && (
               <span
                 className={`absolute px-2 py-1 bg-black/90 text-white text-[10px] md:text-xs rounded-md 
-                  transition-all duration-200 whitespace-nowrap pointer-events-none z-50 opacity-0 group-hover:opacity-100
-                  ${
-                    variant === "card"
-                      ? "left-1/2 -translate-x-1/2 -bottom-8"
-                      : "left-1/2 -translate-x-1/2 top-full mt-1"
-                  }`}
+                  transition-all duration-200 whitespace-nowrap pointer-events-none z-50 opacity-0 group-hover/icon:opacity-100
+                  ${variant === "modal" ? "left-1/2 -translate-x-1/2 top-full mt-1" : ""}`}
               >
                 {tech}
               </span>

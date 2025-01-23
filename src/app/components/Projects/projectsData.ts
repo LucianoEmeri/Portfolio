@@ -12,7 +12,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     title: "TiendaInsumos",
-    description: "E-commerce para Tienda de Insumos",
+    description: "E-commerce para venta de insumos",
     imgUrl: "/assets/project-img4.png",
     liveUrl: "https://tiendainsumos.netlify.app/",
     githubUrl: "https://github.com/LucianoEmeri/TiendaInsumos",
@@ -22,7 +22,7 @@ export const projects: Project[] = [
   },
   {
     title: "RC Amoblamientos",
-    description: "Aplicación web para fábrica de muebles",
+    description: "Aplicación web para tienda de muebles",
     imgUrl: "/assets/project-img2.png",
     liveUrl: "https://rcamoblamientos.vercel.app/",
     githubUrl: "https://github.com/LucianoEmeri/RC-Amoblamientos",
@@ -32,7 +32,7 @@ export const projects: Project[] = [
   },
   {
     title: "RiBuzz",
-    description: "Marketplace para Emprendedores",
+    description: "Marketplace para emprendedores",
     imgUrl: "/assets/project-img1.png",
     videoUrl: "https://www.youtube.com/embed/ahBPL0PhBL8",
     liveUrl: "https://ribuzz.vercel.app/",
@@ -50,6 +50,21 @@ export const projects: Project[] = [
     longDescription:
       "Desarrollado como parte del módulo 3 del Bootcamp de Henry, Mountain Ops es una aplicación de gestión de turnos diseñada específicamente para partidas de Airsoft. Construida con React y Vite para un rendimiento rápido y eficiente, la aplicación utiliza React Router para una navegación fluida y React Redux junto con Redux Toolkit para manejar el estado de manera centralizada, asegurando una gestión coherente y escalable de los datos de la aplicación. Además, se integró Axios para interactuar con la API y gestionar datos en tiempo real, mientras que SweetAlert2 mejora la experiencia del usuario con alertas y notificaciones dinámicas. La plataforma permite a los usuarios gestionar horarios, registrar participantes y organizar partidas de manera intuitiva. Este proyecto resalta mis habilidades en el manejo de herramientas modernas de frontend y en la creación de aplicaciones enfocadas en resolver necesidades específicas.",
     stack: ["React", "Vite", "Redux Toolkit", "Axios"],
+  },
+  {
+    title: "Proyecto X",
+    description: "Próximamente...",
+    imgUrl: "/assets/project-img5.png",
+  },
+  {
+    title: "Proyecto X",
+    description: "Próximamente...",
+    imgUrl: "/assets/project-img5.png",
+  },
+  {
+    title: "Proyecto X",
+    description: "Próximamente...",
+    imgUrl: "/assets/project-img5.png",
   },
   {
     title: "Proyecto X",

@@ -47,7 +47,7 @@ const ProjectCard: React.FC<Project & { onClick: () => void }> = ({
             transition={{ delay: 0.2 }}
             className="mt-4"
           >
-            <TechStack technologies={stack} variant="card" />
+            <TechStack technologies={stack} variant="modal" />
           </motion.div>
         ) : null}
       </div>
@@ -57,42 +57,73 @@ const ProjectCard: React.FC<Project & { onClick: () => void }> = ({
 }
 
 const YouTubeVideo: React.FC<{ videoUrl: string; title: string }> = ({ videoUrl, title }) => {
-  const [embedUrl, setEmbedUrl] = useState("")
+  const videoId = videoUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|&v=))([^#&?]*)/)?.[1]
 
-  useEffect(() => {
-    const videoId = getYouTubeVideoId(videoUrl)
-    if (videoId) {
-      setEmbedUrl(`https://www.youtube.com/embed/${videoId}?vq=hd1080&hd=1&modestbranding=1&rel=0&showinfo=0`)
-    }
-  }, [videoUrl])
-
-  const getYouTubeVideoId = (url: string) => {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/
-    const match = url.match(regExp)
-    return match && match[2].length === 11 ? match[2] : null
-  }
-
-  if (!embedUrl) return null
+  if (!videoId) return null
 
   return (
     <div className="aspect-w-16 aspect-h-9 mb-4">
       <iframe
-        src={embedUrl}
+        src={`https://www.youtube.com/embed/${videoId}?vq=hd1080&hd=1&modestbranding=1&rel=0&showinfo=0`}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
         className="w-full h-full"
         title={`Video de YouTube: ${title}`}
-      ></iframe>
+      />
     </div>
   )
 }
 
 export default function Component() {
-  const [categories] = useState<Record<string, Project[]>>({
-    "Página 1": projects.slice(0, 3),
-    "Página 2": projects.slice(3),
-    "Página 3": [],
+  const [categories, setCategories] = useState<Record<string, Project[]>>(() => {
+    const isMobile = window.innerWidth < 640
+    const isTablet = window.innerWidth >= 640 && window.innerWidth < 1024
+
+    const realProjects = projects.filter((p) => p.title !== "Proyecto X")
+    const placeholderProjects = projects.filter((p) => p.title === "Proyecto X")
+
+    if (isTablet) {
+      return {
+        "Página 1": realProjects.slice(0, 2),
+        "Página 2": realProjects.slice(2),
+        "Página 3": placeholderProjects.slice(0, 2),
+      }
+    }
+
+    return {
+      "Página 1": realProjects.slice(0, 3),
+      "Página 2": [realProjects[3], ...placeholderProjects.slice(0, 2)],
+      "Página 3": placeholderProjects.slice(2, 5),
+    }
   })
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth < 640
+      const isTablet = window.innerWidth >= 640 && window.innerWidth < 1024
+
+      const realProjects = projects.filter((p) => p.title !== "Proyecto X")
+      const placeholderProjects = projects.filter((p) => p.title === "Proyecto X")
+
+      if (isTablet) {
+        setCategories({
+          "Página 1": realProjects.slice(0, 2),
+          "Página 2": realProjects.slice(2),
+          "Página 3": placeholderProjects.slice(0, 2),
+        })
+      } else {
+        setCategories({
+          "Página 1": realProjects.slice(0, 3),
+          "Página 2": [realProjects[3], ...placeholderProjects.slice(0, 2)],
+          "Página 3": placeholderProjects.slice(2, 5),
+        })
+      }
+    }
+
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
+
   const [isOpen, setIsOpen] = useState(false)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
@@ -127,48 +158,51 @@ export default function Component() {
           <div className="max-w-[1800px] mx-auto">
             <Tab.Group>
               <Tab.List className="flex rounded-full bg-red-900/30 overflow-hidden mb-4">
-                {Object.keys(categories).map((category, index) => (
-                  <Tab
-                    key={category}
-                    className={({ selected }) =>
-                      classNames(
-                        "w-1/3 py-2 md:py-3 lg:py-4 text-red-100 text-sm md:text-base tracking-wide font-medium relative transition-all duration-300 ease-in-out z-0",
-                        selected ? "border border-red-300" : "hover:bg-red-800/30",
-                        index === 0 ? "rounded-l-full" : "",
-                        index === Object.keys(categories).length - 1 ? "rounded-r-full" : "",
-                        index === 1 ? "border-t border-b border-red-300/50" : "border-red-300/50",
-                      )
-                    }
-                  >
-                    {({ selected }) => (
-                      <>
-                        <span className="relative z-10">{category}</span>
-                        <div
-                          className={classNames(
-                            "absolute inset-0 bg-gradient-to-r from-red-800 to-red-600 transition-all duration-300 ease-in-out -z-10",
-                            selected ? "w-full" : "w-0",
-                          )}
-                        ></div>
-                      </>
-                    )}
-                  </Tab>
-                ))}
+                {Object.entries(categories).map(
+                  ([category, projects], index) =>
+                    projects.length > 0 && (
+                      <Tab
+                        key={category}
+                        className={({ selected }) =>
+                          classNames(
+                            "w-1/3 py-2 md:py-3 lg:py-4 text-red-100 text-sm md:text-base tracking-wide font-medium relative transition-all duration-300 ease-in-out z-0",
+                            selected ? "border border-red-300" : "hover:bg-red-800/30",
+                            index === 0 ? "rounded-l-full" : "",
+                            index === Object.keys(categories).length - 1 ? "rounded-r-full" : "",
+                            index === 1 ? "border-t border-b border-red-300/50" : "border-red-300/50",
+                          )
+                        }
+                      >
+                        {({ selected }) => (
+                          <>
+                            <span className="relative z-10">{category}</span>
+                            <div
+                              className={classNames(
+                                "absolute inset-0 bg-gradient-to-r from-red-800 to-red-600 transition-all duration-300 ease-in-out -z-10",
+                                selected ? "w-full" : "w-0",
+                              )}
+                            ></div>
+                          </>
+                        )}
+                      </Tab>
+                    ),
+                )}
               </Tab.List>
               <Tab.Panels>
-                {Object.values(categories).map((posts, idx) => (
-                  <Tab.Panel key={idx} className={classNames("rounded-xl bg-red-900/20 p-3 md:p-4 projects-panel")}>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 projects-grid">
-                      {posts.slice(0, 3).map((project, index) => (
-                        <div
-                          key={index}
-                          className={classNames("project-card-wrapper", index === 2 ? "sm:hidden lg:block" : "")}
-                        >
-                          <ProjectCard {...project} onClick={() => openModal(project)} />
+                {Object.values(categories).map(
+                  (posts, idx) =>
+                    posts.length > 0 && (
+                      <Tab.Panel key={idx} className={classNames("rounded-xl bg-red-900/20 p-3 md:p-4 projects-panel")}>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 projects-grid">
+                          {posts.map((project, index) => (
+                            <div key={index} className="project-card-wrapper">
+                              <ProjectCard {...project} onClick={() => openModal(project)} />
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                  </Tab.Panel>
-                ))}
+                      </Tab.Panel>
+                    ),
+                )}
               </Tab.Panels>
             </Tab.Group>
           </div>
