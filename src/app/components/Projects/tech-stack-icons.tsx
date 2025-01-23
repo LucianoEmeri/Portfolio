@@ -2,7 +2,6 @@
 
 import { useRef, useEffect, useState } from "react"
 import {
-  Blocks,
   LayoutTemplate,
   FileCode2,
   Palette,
@@ -13,26 +12,24 @@ import {
   Container,
   Cloud,
   FormInput,
-  Image,
-  CheckSquare,
   Network,
+  CheckSquare,
   SquareStackIcon as Stack,
   Box,
 } from "lucide-react"
 
 const iconMap: Record<string, JSX.Element> = {
-  React: <Blocks className="w-5 h-5 md:w-6 md:h-6" />,
+  Vite: <Zap className="w-5 h-5 md:w-6 md:h-6" />,
   "Next.js": <LayoutTemplate className="w-5 h-5 md:w-6 md:h-6" />,
   TypeScript: <FileCode2 className="w-5 h-5 md:w-6 md:h-6" />,
   "Tailwind CSS": <Palette className="w-5 h-5 md:w-6 md:h-6" />,
-  Vite: <Zap className="w-5 h-5 md:w-6 md:h-6" />,
   Supabase: <Database className="w-5 h-5 md:w-6 md:h-6" />,
   "Framer Motion": <Frame className="w-5 h-5 md:w-6 md:h-6" />,
   Stripe: <CreditCard className="w-5 h-5 md:w-6 md:h-6" />,
   "Redux Toolkit": <Container className="w-5 h-5 md:w-6 md:h-6" />,
-  "Google OAuth": <Cloud className="w-5 h-5 md:w-6 md:h-6" />,
+  "Google OAuth": <Network className="w-5 h-5 md:w-6 md:h-6" />,
   Formik: <FormInput className="w-5 h-5 md:w-6 md:h-6" />,
-  Cloudinary: <Image className="w-5 h-5 md:w-6 md:h-6" />,
+  Cloudinary: <Cloud className="w-5 h-5 md:w-6 md:h-6" />,
   Zod: <CheckSquare className="w-5 h-5 md:w-6 md:h-6" />,
   Axios: <Network className="w-5 h-5 md:w-6 md:h-6" />,
   "Tanstack Query": <Stack className="w-5 h-5 md:w-6 md:h-6" />,
@@ -54,12 +51,12 @@ const useContainerWidth = () => {
       if (!containerRef.current) return
 
       const containerWidth = containerRef.current.offsetWidth
-      const iconWidth = 48 // Aproximadamente el ancho del icono + padding
-      const gap = 12 // gap-3 = 0.75rem = 12px
+      const iconWidth = 48 
+      const gap = 12 
       const availableWidth = containerWidth - gap
 
       const iconsPerRow = Math.floor(availableWidth / (iconWidth + gap))
-      setVisibleIcons(Math.max(3, iconsPerRow)) // Mínimo 3 iconos
+      setVisibleIcons(Math.max(3, iconsPerRow))
     }
 
     calculateVisibleIcons()

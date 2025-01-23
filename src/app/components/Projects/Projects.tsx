@@ -76,7 +76,7 @@ const YouTubeVideo: React.FC<{ videoUrl: string; title: string }> = ({ videoUrl,
 
 export default function Component() {
   const [categories, setCategories] = useState<Record<string, Project[]>>(() => {
-    const isMobile = window.innerWidth < 640
+    // const isMobile = window.innerWidth < 640
     const isTablet = window.innerWidth >= 640 && window.innerWidth < 1024
 
     const realProjects = projects.filter((p) => p.title !== "Proyecto X")
@@ -99,7 +99,7 @@ export default function Component() {
 
   useEffect(() => {
     const handleResize = () => {
-      const isMobile = window.innerWidth < 640
+      // const isMobile = window.innerWidth < 640
       const isTablet = window.innerWidth >= 640 && window.innerWidth < 1024
 
       const realProjects = projects.filter((p) => p.title !== "Proyecto X")
