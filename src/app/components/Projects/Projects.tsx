@@ -1,15 +1,20 @@
 "use client"
 
-import Image from "next/image"
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import { Tab } from "@headlessui/react"
 import { motion } from "framer-motion"
 import { X, Github, ExternalLink, Lock } from "lucide-react"
 import { type Project, projects } from "./projectsData"
 import { TechStack } from "./tech-stack-icons"
+import { useWindowSize } from "@/app/hooks/useWindowSize"
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ")
+}
+
+const imageLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
+  return `${src}?w=${width}&q=${quality || 75}`
 }
 
 const ProjectCard: React.FC<Project & { onClick: () => void }> = ({
@@ -29,7 +34,14 @@ const ProjectCard: React.FC<Project & { onClick: () => void }> = ({
       onClick={onClick}
     >
       <div className="aspect-w-4 aspect-h-3 w-full">
-        <Image src={imgUrl || "/placeholder.svg"} alt={title} layout="fill" objectFit="cover" quality={100} />
+        <Image
+          src={imgUrl || "/placeholder.svg"}
+          alt={title}
+          layout="fill"
+          objectFit="cover"
+          quality={100}
+          loader={imageLoader}
+        />
       </div>
       <div className="proj-txtx absolute text-center top-[65%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ease-in-out opacity-0 w-full group-hover:top-1/2 group-hover:opacity-100 z-10">
         <h4 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide leading-tight mb-2 text-white">
@@ -74,21 +86,13 @@ const YouTubeVideo: React.FC<{ videoUrl: string; title: string }> = ({ videoUrl,
   )
 }
 
-export default function Component() {
-  const [categories, setCategories] = useState<Record<string, Project[]>>(() => {
-    // const isMobile = window.innerWidth < 640
-    const isTablet = window.innerWidth >= 640 && window.innerWidth < 1024
+export default function Projects() {
+  const windowSize = useWindowSize()
 
+  const [categories, setCategories] = useState<Record<string, Project[]>>(() => {
+    // Default to desktop layout initially
     const realProjects = projects.filter((p) => p.title !== "Proyecto X")
     const placeholderProjects = projects.filter((p) => p.title === "Proyecto X")
-
-    if (isTablet) {
-      return {
-        "Página 1": realProjects.slice(0, 2),
-        "Página 2": realProjects.slice(2),
-        "Página 3": placeholderProjects.slice(0, 2),
-      }
-    }
 
     return {
       "Página 1": realProjects.slice(0, 3),
@@ -98,10 +102,8 @@ export default function Component() {
   })
 
   useEffect(() => {
-    const handleResize = () => {
-      // const isMobile = window.innerWidth < 640
-      const isTablet = window.innerWidth >= 640 && window.innerWidth < 1024
-
+    if (typeof windowSize.width !== "undefined") {
+      const isTablet = windowSize.width >= 640 && windowSize.width < 1024
       const realProjects = projects.filter((p) => p.title !== "Proyecto X")
       const placeholderProjects = projects.filter((p) => p.title === "Proyecto X")
 
@@ -119,10 +121,7 @@ export default function Component() {
         })
       }
     }
-
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
+  }, [windowSize.width])
 
   const [isOpen, setIsOpen] = useState(false)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
